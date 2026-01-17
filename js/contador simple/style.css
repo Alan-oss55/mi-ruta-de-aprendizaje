@@ -1,0 +1,58 @@
+body{
+    background-color: #DAE2F0;
+    color: rgb(65, 64, 64);
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    width: 40%;
+    background-color: #fff ;
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    height: 300px;
+    border: none;
+    border-radius: 12px ;
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.15)
+}
+
+.contador {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    transition: transform 0.15s ease;
+}
+
+
+.botones{
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn{
+    flex: 1;
+    background-color: rgb(204, 204, 204);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.5rem;
+    padding: 10px;
+    cursor: pointer;
+
+}
+
+.btn-success{
+    background-color: rgb(167, 212, 122);
+    color: white;
+}

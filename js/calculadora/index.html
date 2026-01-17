@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científia</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Calculadora</h1>
+    </header>
+    
+    <div class="container">
+        
+        <form onsubmit="return false;">
+            <input type="text" readonly class="resultado" id="resultado">
+
+            <div class="operaciones">
+                <input type="number" class="numero" id="numero1">
+                <input type="number" class="numero" id="numero2">
+                <button class="btn" id="suma">Sumar</button>
+                <button class="btn" id="resta">Restar</button>
+                <button class="btn" id="multiplicacion">Multiplicar</button>
+                <button class="btn" id="division">Dividir</button>
+            </div>
+            
+        </form>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
