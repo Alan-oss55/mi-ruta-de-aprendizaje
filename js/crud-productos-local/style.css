@@ -1,1 +1,136 @@
+body {
+  background-color: rgb(247, 247, 247);
+  font-family: "Inter" sans-serif;
+  color: #1f2937;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.visualizarProductos{
+    background-color: white;
+    margin-top: 50px;
+    width: 800px;
+    min-height: 400px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.encabezado{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+h1{
+    margin: 40px;
+    justify-content: left;
+    flex: 1;
+}
+
+
+
+table{
+    background-color: #e7e7e7;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead{
+    background-color: rgb(58, 58, 58);
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+td{
+    width:10rem;
+}
+
+.btn{
+    background-color: #ccc;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin:2px;
+    font-family: sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.btn-success{
+    background-color: #ff6b35;
+    color: white;
+}
+
+.btn-warning{
+    background-color: #f7d024;
+    color: white;
+}
+
+.btn-primary{
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.btn-danger{
+    background-color: red;
+    color: white;
+}
+
+
+
+.container-form-product{
+    background-color: white;
+    margin-top: 40px;
+    width: 550px;
+    min-height: 300px;
+    padding: 32px;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.15);
+}
+
+.container-form-product h1{
+
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+#formProducto{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+#formProducto label{
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+#formProducto input, 
+#formProducto select{
+
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+}
+
+
+.container-form-product {
+  animation: fadeIn 0.25s ease;
+}
+
+
 

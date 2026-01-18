@@ -3,6 +3,7 @@ const tablaProductos = document.getElementById("datosProductos");
 const containerFormProduct = document.getElementById("container-form-product");
 const visualizarProductos = document.getElementById("visualizarProductos");
 const btnGuardarProducto = document.getElementById("guardarProducto");
+const h1Form = document.getElementById('h1Form');
 
 let nombreProducto = document.getElementById("nombreProducto");
 let categoriaProducto = document.getElementById("categoriaProducto");
@@ -18,6 +19,7 @@ if (productosGuardados) productos = JSON.parse(productosGuardados);
 renderizarProductos();
 
 btnAgregar.addEventListener("click", function () {
+  h1Form.textContent = 'Registrar un nuevo producto'
   nombreProducto.value = "";
   categoriaProducto.value = 0;
   precioProducto.value = "";
@@ -73,7 +75,7 @@ function renderizarProductos() {
     tdNombre.textContent = producto.nombre;
 
     const tdPrecio = document.createElement("td");
-    tdPrecio.textContent = producto.precio;
+    tdPrecio.textContent = producto.precio.toFixed(2);
 
     const tdCategoria = document.createElement("td");
     tdCategoria.textContent = producto.categoria;
@@ -100,6 +102,7 @@ function renderizarProductos() {
     btnEditar.classList.add("btn", "btn-warning");
 
     btnEditar.addEventListener("click", () => {
+      h1Form.textContent = 'Editar Producto'
       editarTarea(index);
     });
 

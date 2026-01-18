@@ -4,14 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Productos</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <div class="visualizarProductos" id="visualizarProductos">
-      <h1>Lista de productos</h1>
-      <button class="btn btn-primary" id="agregarProducto">Agregar</button>
+        <div class="encabezado">
+            <h1>Lista de productos</h1>
+            <button class="btn btn-primary" id="agregarProducto">Agregar</button>
+        </div>
 
       <table class="table table-products">
-        <th>
+        <thead>
           <tr>
             <td>N°</td>
             <td>Nombre</td>
@@ -19,24 +22,24 @@
             <td>Categoría</td>
             <td>Acciones</td>
           </tr>
-        </th>
+        </thead>
 
         <tbody id="datosProductos"></tbody>
       </table>
     </div>
 
-    <div id="container-form-product" hidden>
-      <h1>Crear Nuevo Producto</h1>
+    <div class="container-form-product" id="container-form-product" hidden>
+      <h1 id="h1Form"></h1>
       <form id="formProducto">
         <label>Nombre</label>
         <input
           type="text"
           id="nombreProducto"
-          placeholder="Nombre del producto"
+          placeholder="Nombre del producto.."
           required
         />
         <label>Precio</label>
-        <input type="text" id="precioProducto" required />
+        <input type="text" id="precioProducto" required placeholder="Precio del producto.." />
         <label>Categoría</label>
         <select name="categoriaProducto" id="categoriaProducto" required>
           <option value="0" selected>Seleccionar</option>
@@ -46,7 +49,7 @@
           <option value="4">Libros</option>
           <option value="5">Juguetes</option>
         </select>
-        <button id="guardarProducto">Guardar</button>
+        <button class="btn btn-success" id="guardarProducto">Guardar</button>
       </form>
     </div>
 
