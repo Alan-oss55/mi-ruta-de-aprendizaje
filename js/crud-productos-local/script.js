@@ -8,18 +8,19 @@ let nombreProducto = document.getElementById("nombreProducto");
 let categoriaProducto = document.getElementById("categoriaProducto");
 let precioProducto = document.getElementById("precioProducto");
 
+let indiceEncontrado = null;
 let productos = [];
 
 const productosGuardados = localStorage.getItem("productos");
 
 if (productosGuardados) productos = JSON.parse(productosGuardados);
 
-renderizarProductos()
+renderizarProductos();
 
 btnAgregar.addEventListener("click", function () {
-  nombreProducto.value = '';
-  categoriaProducto.value = 0 ;
-  precioProducto.value = '';
+  nombreProducto.value = "";
+  categoriaProducto.value = 0;
+  precioProducto.value = "";
   visualizarProductos.setAttribute("hidden", true);
   containerFormProduct.removeAttribute("hidden");
 });
@@ -42,7 +43,12 @@ btnGuardarProducto.addEventListener("click", function (e) {
     categoria: categoriaProducto.options[categoriaProducto.selectedIndex].text,
   };
 
-  productos.push(nuevoProducto);
+  if (indiceEncontrado === null) {
+    productos.push(nuevoProducto);
+  } else {
+    productos[indiceEncontrado] = nuevoProducto;
+    indiceEncontrado = null;
+  }
 
   let productoToJson = JSON.stringify(productos);
 
@@ -53,8 +59,6 @@ btnGuardarProducto.addEventListener("click", function (e) {
 
   renderizarProductos();
 });
-
-
 
 function renderizarProductos() {
   tablaProductos.innerHTML = "";
@@ -80,19 +84,24 @@ function renderizarProductos() {
     btnEliminar.textContent = "Eliminar";
     btnEliminar.classList.add("btn", "btn-danger");
 
-    btnEliminar.addEventListener('click', function(){
+    btnEliminar.addEventListener("click", function () {
+      const confirmacion = confirm(
+        `Estás seguro que quieres eliminar el producto "${producto.nombre}"?`,
+      );
+      if (!confirmacion) return;
 
-        const confirmacion = confirm(`Estás seguro que quieres eliminar el producto "${producto.nombre}"?`)
-        if ( !confirmacion ) return;
-
-        productos.splice(index, 1)
-        localStorage.setItem( 'productos', JSON.stringify( productos ))
-        renderizarProductos();
-    })
+      productos.splice(index, 1);
+      localStorage.setItem("productos", JSON.stringify(productos));
+      renderizarProductos();
+    });
 
     const btnEditar = document.createElement("button");
     btnEditar.textContent = "Editar";
     btnEditar.classList.add("btn", "btn-warning");
+
+    btnEditar.addEventListener("click", () => {
+      editarTarea(index);
+    });
 
     acciones.appendChild(btnEditar);
     acciones.appendChild(btnEliminar);
@@ -101,4 +110,29 @@ function renderizarProductos() {
 
     tablaProductos.appendChild(tr);
   });
+}
+
+function editarTarea(ind) {
+  let productoEncontrado = productos[ind];
+
+  nombreProducto.value = productoEncontrado.nombre;
+  precioProducto.value = Number(productoEncontrado.precio);
+  categoriaProducto.value = obtenerCategoria(productoEncontrado.categoria);
+
+  indiceEncontrado = ind;
+
+  visualizarProductos.hidden = true;
+  containerFormProduct.hidden = false;
+}
+
+function obtenerCategoria(textoCategoria) {
+  const opciones = categoriaProducto.options;
+
+  for (let i = 0; i < opciones.length; i++) {
+    if (opciones[i].text === textoCategoria) {
+      return opciones[i].value;
+    }
+  }
+
+  return "0";
 }
