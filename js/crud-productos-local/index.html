@@ -1,13 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Productos</title>
-</head>
-<body>
-    <header>
-        <h1>Lista de productos</h1>
-    </header>
-</body>
+  </head>
+  <body>
+    <div class="visualizarProductos" id="visualizarProductos">
+      <h1>Lista de productos</h1>
+      <button class="btn btn-primary" id="agregarProducto">Agregar</button>
+
+      <table class="table table-products">
+        <th>
+          <tr>
+            <td>N°</td>
+            <td>Nombre</td>
+            <td>Precio</td>
+            <td>Categoría</td>
+            <td>Acciones</td>
+          </tr>
+        </th>
+
+        <tbody id="datosProductos"></tbody>
+      </table>
+    </div>
+
+    <div id="container-form-product" hidden>
+      <h1>Crear Nuevo Producto</h1>
+      <form id="formProducto">
+        <label>Nombre</label>
+        <input
+          type="text"
+          id="nombreProducto"
+          placeholder="Nombre del producto"
+          required
+        />
+        <label>Precio</label>
+        <input type="text" id="precioProducto" required />
+        <label>Categoría</label>
+        <select name="categoriaProducto" id="categoriaProducto" required>
+          <option value="0" selected>Seleccionar</option>
+          <option value="1">Electrónica</option>
+          <option value="2">Ropa</option>
+          <option value="3">Hogar</option>
+          <option value="4">Libros</option>
+          <option value="5">Juguetes</option>
+        </select>
+        <button id="guardarProducto">Guardar</button>
+      </form>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
