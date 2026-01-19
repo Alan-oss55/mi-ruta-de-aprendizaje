@@ -45,13 +45,20 @@ function renderizarUsuarios() {
         btnStar.textContent = "★";
         btnStar.classList.add("btn", "btn-star");
         btnStar.setAttribute("aria-label", "Agregar a favoritos");
+ 
+        const btnVerMas = document.createElement('button')
+        btnVerMas.textContent = 'Ver Más';
 
         const tdAcciones = document.createElement('td');
-        tdAcciones.appendChild(btnStar);
+        tdAcciones.append(btnStar, btnVerMas);
 
         btnStar.addEventListener("click", function () {
             toggleFavorito(usuario.id);
         });
+
+        btnVerMas.addEventListener('click', function(){
+            console.log(`ver mas datos de ${usuario.username}`)
+        })
 
         tr.append(tdNombre, tdUsuario, tdEmail, tdTelefono, tdAcciones);
 
