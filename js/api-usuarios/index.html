@@ -1,46 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Usuarios</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>    
-    <div class="usuarios-container">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="usuarios-container">
+      <h1>Usuarios</h1>
 
-        <h1>Usuarios</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="datosUsuarios"></tbody>
+      </table>
+    </section>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Usuario</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="datosUsuarios"></tbody>
-        </table>
-
-    </div>
-
-    <div class="modal-overlay" id="modal-ver-mas" >
-
-        <div class="modal">
-            <button class="btn modal-close" id="cerrarModal">Cerrar</button>
-            <h2 id="modalNombre"></h2>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
-            <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
+    <div class="modal" id="modalVerMas">
+      <div class="modal-content">
+        
+        <h2 id="modalNombre"></h2>
+        <div class="row">
+          <span>Datos Personales</span>
+          <p><strong>Usuario:</strong><span id="modalUsername"></span></p>
+          <p><strong>Email:</strong><span id="modalEmail"></span></p>
+          <p><strong>Teléfono:</strong><span id="modalPhone"></span></p>
+          <p><strong>Ciudad:</strong><span id="modalCiudad"></span></p>
         </div>
 
+        <div class="row">
+          <span>Datos Empresariales</span>
+          <p><strong>Empresa:</strong><span id="modalEmpresa"></span></p>
+          <p><strong>Slogan:</strong><span id="modalSlogan"></span></p>
+          <p><strong>Área:</strong><span id="modalArea"></span></p>
+        </div>
+
+        <button class="btn btn-close" id="cerrarModal">Cerrar</button>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

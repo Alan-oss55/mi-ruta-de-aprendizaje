@@ -2,8 +2,20 @@ const API_URL = "https://jsonplaceholder.typicode.com/users";
 
 const datosUsuarios = document.getElementById("datosUsuarios");
 
-let usuariosFavoritos =
-    JSON.parse(localStorage.getItem("usuariosFavoritos")) || [];
+const divModal = document.getElementById('modalVerMas');
+
+const btnOcutalModal = document.getElementById('cerrarModal');
+
+let modalUsername = document.getElementById('modalUsername');
+let modalEmail = document.getElementById('modalEmail');
+let modalPhone = document.getElementById('modalPhone');
+let modalEmpresa = document.getElementById('modalEmpresa');
+let modalSlogan = document.getElementById('modalSlogan');
+let modalArea = document.getElementById('modalArea');
+let modalCiudad = document.getElementById('modalCiudad');
+let modalNombre = document.getElementById('modalNombre')
+
+let usuariosFavoritos = JSON.parse(localStorage.getItem("usuariosFavoritos")) || [];
 
 let usuarios = [];
 
@@ -45,20 +57,31 @@ function renderizarUsuarios() {
         btnStar.textContent = "★";
         btnStar.classList.add("btn", "btn-star");
         btnStar.setAttribute("aria-label", "Agregar a favoritos");
- 
-        const btnVerMas = document.createElement('button')
-        btnVerMas.textContent = 'Ver Más';
 
-        const tdAcciones = document.createElement('td');
+        const btnVerMas = document.createElement("button");
+        btnVerMas.textContent = "Ver Más";
+        btnVerMas.classList.add('btn', 'btn-success')
+
+        const tdAcciones = document.createElement("td");
         tdAcciones.append(btnStar, btnVerMas);
 
         btnStar.addEventListener("click", function () {
             toggleFavorito(usuario.id);
         });
 
-        btnVerMas.addEventListener('click', function(){
-            console.log(`ver mas datos de ${usuario.username}`)
-        })
+        if( usuariosFavoritos.includes(usuario.id)){
+            btnStar.classList.add('activo')
+        }
+
+        btnVerMas.addEventListener("click", function () {
+            console.log(`ver mas datos de ${usuario.username}`);
+            divModal.classList.add( 'activo');
+
+            //mostrar datos del usuario en el modal
+
+            abrirModal(usuario);
+
+        });
 
         tr.append(tdNombre, tdUsuario, tdEmail, tdTelefono, tdAcciones);
 
@@ -67,16 +90,36 @@ function renderizarUsuarios() {
 }
 
 function toggleFavorito(id) {
-
     if (usuariosFavoritos.includes(id)) {
-        usuariosFavoritos = usuariosFavoritos.filter( favId => favId !== id );
+        usuariosFavoritos = usuariosFavoritos.filter((favId) => favId !== id);
     } else {
         usuariosFavoritos.push(id);
     }
 
-    localStorage.setItem('usuariosFavoritos',JSON.stringify( usuariosFavoritos));
+    localStorage.setItem("usuariosFavoritos", JSON.stringify(usuariosFavoritos));
 
     renderizarUsuarios();
-
-
 }
+
+
+btnOcutalModal.addEventListener("click", function () {
+    console.log('ocutar modal');
+    divModal.classList.remove('activo')
+
+})
+
+
+function abrirModal(user) {
+    modalNombre.textContent = user.name
+    modalUsername.textContent = user.username
+    modalEmail.textContent = user.email
+    modalPhone.textContent = user.phone
+    modalEmpresa.textContent = user.company.name
+    modalSlogan.textContent = user.company.catchPhrase
+    modalArea.textContent = user.company.bs
+    modalCiudad.textContent = user.address.city
+}
+
+
+
+
