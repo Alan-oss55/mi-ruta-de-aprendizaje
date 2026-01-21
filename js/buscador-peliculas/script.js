@@ -1,17 +1,19 @@
 const apiKey = "12667317";
 
-const urlBase = `http://www.omdbapi.com/?apikey=${apiKey}&s=`;
+const urlBase = `https://www.omdbapi.com/?apikey=${apiKey}&s=`;
 
 const inputSearch = document.getElementById("inputSearch");
 
-inputSearch.addEventListener("input", () => {
-    buscarPeliculas(inputSearch.value);
-});
+const listaMovies = document.getElementById("listaMovies");
 
-async function buscarPeliculas(texto) {
+inputSearch.addEventListener("input", buscarPeliculas)
 
-    if (texto.length > 2) {
-        const url = urlBase + texto;
+async function buscarPeliculas() {
+
+    const inputTexto = inputSearch.value
+
+    if (inputTexto.length > 2) {
+        const url = urlBase + inputTexto;
 
         try {
             const response = await fetch(url);
@@ -25,11 +27,13 @@ async function buscarPeliculas(texto) {
         } catch (e) {
             console.log("error al consultar la api ERROR " + e);
         }
+    } else {
+
+        listaMovies.innerHTML = '';
     }
 }
 
 function renderizarMovies(moviesData) {
-    const listaMovies = document.getElementById("listaMovies");
 
     listaMovies.innerHTML = '';
 
@@ -42,8 +46,8 @@ function renderizarMovies(moviesData) {
         liMovie.innerHTML = `
             <img src="${movie.Poster}">
             <h3>${movie.Title}</h3>
-            <p>${movie.Year}<p>
-            <p>${movie.Type}</p>`
+            <p>Año: ${movie.Year}</p>
+            <p>Type: ${movie.Type}</p>`
 
 
         listaMovies.appendChild(liMovie)
