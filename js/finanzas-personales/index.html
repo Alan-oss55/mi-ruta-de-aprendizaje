@@ -48,7 +48,9 @@
         <input type="text" class="form-control" id="descripcion" placeholder="Descripción a agregar al registro...." required >
 
         <label> Categoía</label>
-        <select name="categoria" id="categoria" class="form-control" required></select>
+        <select name="categoria" id="categoria" class="form-control" required>
+            <option value="0">Ninguna</option>
+        </select>
 
         <label>Fecha</label>
         <input type="date" class="date"  id="fecha" required>
@@ -56,7 +58,7 @@
         <label>Monto</label>
         <input type="number" id="monto" required>
 
-        <button class="btn" id="btnAgregar">Agregar</button>
+        <button type="submit" class="btn" id="btnAgregar">Agregar</button>
       </div>
     </form>
 
