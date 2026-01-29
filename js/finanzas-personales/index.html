@@ -10,6 +10,8 @@
   <body>
     <header>
       <h1>Money Flow</h1>
+      <button class="btn" id="btnAgregarTransaccion">Agregar transacción</button>
+      <button class="btn" id="cancelarTransaccion">Cancelar</button>
     </header>
 
     <main class="container">
@@ -36,7 +38,7 @@
       <section id="resumen"></section>
     </main>
 
-    <form id="formFinanza">
+    <form id="formFinanza" hidden>
       <div class="row">
         <label>Tipo</label>
         <select name="tipo" id="tipo" class="form-control lista_simple" required>
