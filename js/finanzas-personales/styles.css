@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #141D2B;
+    color: #c9ccd1;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 10px 50px;
+    border-bottom: 1px solid rgb(192, 189, 189);
+}
+
+.container {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+
+#datosFinanzas {
+    width: 100%;
+    background-color: #1b263b;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table thead {
+    background-color: #0f172a;
+}
+
+.table th {
+    text-align: left;
+    font-weight: 600;
+    padding: 12px;
+    color: #e5e7eb;
+    border-bottom: 1px solid #2d3748;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #2d3748;
+    font-size: 14px;
+}
+
+.table tbody tr:hover {
+    background-color: #24324a;
+}
+
+
+.table td.sumar,
+.table th.sumar {
+    text-align: right;
+}
+
+.ingreso {
+    color: #22c55e;
+}
+
+.egreso {
+    color: #ef4444;
+}
+
+button{
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none ;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.btn-editar{
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-eliminar{
+    background-color: #dc2626;
+    color: white;
+}
+
+#formFinanza{
+    max-width: 420px;
+    margin: 30px auto;
+    background-color: #1b263b;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.row{
+    display: flex ;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label{
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+input, select{
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background-color: #0f172a;;
+    border: 1px solid #2d3748;
+    color: #e5e7eb;
+    font-size: 14px;
+}
+
+input::placeholder{
+    color: #6b7280;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+#formFinanza .btn{
+
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+@media( max-width: 768px){
+    #datosFinanza{
+        margin: 20px 10px;
+        padding: 16px;
+    }
+
+    .table{
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+
+
+
+
+
