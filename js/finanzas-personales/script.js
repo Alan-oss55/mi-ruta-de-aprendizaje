@@ -9,8 +9,17 @@ const btnAgregarTransaccion = document.getElementById('btnAgregarTransaccion');
 const cancelarTransaccion = document.getElementById('cancelarTransaccion');
 const datosFinanzas = document.getElementById('datosFinanzas');
 
+const filtroMes = document.getElementById('filtroMes')
+
 let editMode = false;
 let editId = null;
+
+let transaccionesFiltradas = [];
+let mesActivo = null;
+
+let chartResumen = null ;
+
+let charCategorias = null ;
 
 let transacciones = JSON.parse(localStorage.getItem('transacciones')) || [];
 
@@ -35,8 +44,8 @@ function handleSubmit(e) {
 
     const montoReal = Number(
         monto.value
-        .replace(/\./g, '') // quitar separadores de miles
-        .replace(',', '.')  // convertir decimal
+            .replace(/\./g, '') // quitar separadores de miles
+            .replace(',', '.')  // convertir decimal
     );
 
     const transaccion = {
@@ -73,13 +82,19 @@ function renderizarDatos() {
 
     transaccionList.innerHTML = '';
 
-    transacciones.forEach(transaccion => {
+    console.log(`mesActivo = ${mesActivo}`)
+
+    transaccionesFiltradas = mesActivo ? transacciones.filter(t => t.fecha.startsWith(mesActivo)) : transacciones
+
+    console.log(transaccionesFiltradas)
+    transaccionesFiltradas.forEach(transaccion => {
 
         const trList = document.createElement('tr');
 
         const tdFecha = document.createElement('td');
         const tdDescripcion = document.createElement('td');
         const tdCategoria = document.createElement('td');
+        const tdTipo = document.createElement('td');
         const tdMonto = document.createElement('td');
         const tdAcciones = document.createElement('td');
         const btnEliminar = document.createElement('button');
@@ -96,37 +111,51 @@ function renderizarDatos() {
         tdFecha.textContent = transaccion.fecha;
         tdDescripcion.textContent = transaccion.descripcion
         tdCategoria.textContent = transaccion.categoria
+        tdTipo.textContent = transaccion.tipo
         tdMonto.textContent = Number(transaccion.monto).toFixed(2)
 
         tdAcciones.append(btnEliminar, btnEditar);
 
-        trList.append(tdFecha, tdDescripcion, tdCategoria, tdMonto, tdAcciones)
+        trList.append(tdFecha, tdDescripcion, tdTipo, tdCategoria, tdMonto, tdAcciones)
 
         transaccionList.appendChild(trList);
-        
+
         btnEditar.addEventListener('click', () => edtiarTransaccion(transaccion.id))
-        
+
         btnEliminar.addEventListener('click', () => eliminarTransaccion(transaccion.id))
-        
+
     });
 
-    if( transacciones.length > 0 ){
-        mostrarResumen() ;
-    }else{
+    if (transaccionesFiltradas.length > 0) {
+        mostrarResumen();
+    } else {
         ocultarResumen();
     }
-    
 }
 
 
+filtroMes.addEventListener('change', function () {
+
+    mesActivo = filtroMes.value || null;
+
+    renderizarDatos()
+
+})
+
+
+document.getElementById('limpiarFiltros').addEventListener('click', () => {
+    mesActivo = null;
+    filtroMes.value = '';
+    renderizarDatos();
+});
 
 
 tipo.addEventListener('change', mostrarCategorias)
 
 
-function mostrarCategorias(){
+function mostrarCategorias() {
 
-    categoria.innerHTML = '' ;
+    categoria.innerHTML = '';
 
     const categoriasPorTipo = {
         ingreso: ['Salario', 'Venta', 'Regalo', 'Otro'],
@@ -135,7 +164,7 @@ function mostrarCategorias(){
 
     const categorias = categoriasPorTipo[tipo.value]
 
-    categorias.forEach( cat =>{
+    categorias.forEach(cat => {
 
         const option = document.createElement('option')
 
@@ -145,7 +174,7 @@ function mostrarCategorias(){
         categoria.appendChild(option)
     })
 
-    
+
 }
 
 
@@ -202,67 +231,67 @@ function ocultarForm() {
 
 
 monto.addEventListener('input', () => {
-  let valor = monto.value;
+    let valor = monto.value;
 
-  // 1. Permitir solo números y coma
-  valor = valor.replace(/[^0-9,]/g, '');
+    // 1. Permitir solo números y coma
+    valor = valor.replace(/[^0-9,]/g, '');
 
-  // 2. Separar por coma
-  let partes = valor.split(',');
+    // 2. Separar por coma
+    let partes = valor.split(',');
 
-  // 3. Si hay más de una coma, quedarse con la primera
-  if (partes.length > 2) {
-    partes = [partes[0], partes[1]];
-  }
+    // 3. Si hay más de una coma, quedarse con la primera
+    if (partes.length > 2) {
+        partes = [partes[0], partes[1]];
+    }
 
-  let entero = partes[0];
-  let decimal = partes[1] || '';
+    let entero = partes[0];
+    let decimal = partes[1] || '';
 
-  // 4. Formatear miles
-  entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // 4. Formatear miles
+    entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-  // 5. Limitar decimales a 2
-  decimal = decimal.slice(0, 2);
+    // 5. Limitar decimales a 2
+    decimal = decimal.slice(0, 2);
 
-  // 6. Reconstruir valor
-  monto.value = decimal !== ''
-    ? `${entero},${decimal}`
-    : entero;
+    // 6. Reconstruir valor
+    monto.value = decimal !== ''
+        ? `${entero},${decimal}`
+        : entero;
 });
 
 
 
-function mostrarResumen(){
+function mostrarResumen() {
 
     const resumen = document.getElementById('resumen');
     const totalIngreso = document.getElementById('totalIngreso')
     const totalEgreso = document.getElementById('totalEgreso')
     const balanceFinal = document.getElementById('balanceFinal')
 
-    resumen.hidden = false ;
+    resumen.hidden = false;
 
-    let sumIngresos = 0 ;
-    let sumEgresos = 0 ;
-    
-    
+    let sumIngresos = 0;
+    let sumEgresos = 0;
 
-    transacciones.forEach( tr => {
 
-        const montotr = Number( tr.monto );
 
-        if ( tr.tipo.toLowerCase() == 'ingreso'){
+    transaccionesFiltradas.forEach(tr => {
 
-            sumIngresos += montotr ;
+        const montotr = Number(tr.monto);
+
+        if (tr.tipo.toLowerCase() == 'ingreso') {
+
+            sumIngresos += montotr;
         }
-        if ( tr.tipo.toLowerCase() == 'egreso'){
+        if (tr.tipo.toLowerCase() == 'egreso') {
 
-            sumEgresos += montotr ;
+            sumEgresos += montotr;
         }
 
 
     })
 
-    const balance =  sumIngresos - sumEgresos;
+    const balance = sumIngresos - sumEgresos;
 
 
     totalIngreso.textContent = sumIngresos.toLocaleString('es-ES', {
@@ -277,20 +306,93 @@ function mostrarResumen(){
         minimumFractionDigits: 2
     });
 
-    
+    dibujarGraficoResumen(sumIngresos, sumEgresos);
+
+    dibujarGraficosCategoria();
 }
 
 
-function ocultarResumen(){
+function ocultarResumen() {
 
     const resumen = document.getElementById('resumen');
 
-    resumen.hidden = true ;
+    resumen.hidden = true;
 }
 
 
+function dibujarGraficoResumen(ingresos, egresos){
+
+    const ctx = document.getElementById('graficoResumen')
+
+    if (chartResumen) chartResumen.destroy();
+
+    chartResumen = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+            labels: ['Ingresos', 'Egresos'],
+            datasets: [{
+                label: 'Monto',
+                data: [ingresos, egresos],
+                backgroundColor: ['#22c55e', '#ef4444']
+            }]
+        },
+        options:{
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins:{
+                legend: { display:false }
+            }
+        }
+    })
+}
 
 
+function dibujarGraficosCategoria(){
+
+    const totales = {};
+
+    transaccionesFiltradas.forEach( tr => {
+        if ( tr.tipo === 'egreso' ){
+            totales[tr.categoria] = (totales[tr.categoria] || 0 ) + tr.monto
+        }
+    })
+
+    const labels = Object.keys(totales)
+    const data = Object.values(totales)
+
+    const ctx = document.getElementById('graficoCategorias');
+
+    if (charCategorias){
+
+        charCategorias.destroy()
+    }
+
+    charCategorias = new Chart( ctx, {
+        type: 'pie',
+        data:{
+            labels,
+            datasets:[
+
+                {
+                data,
+                backgroundColor:[
+                    '#f87171',
+                    '#fb923c',
+                    '#facc15',
+                    '#38bdf8',
+                    '#a78bfa'
+                ]
+            }
+            ]
+           
+        },
+         options:{
+                maintainAspectRatio: false,
+                responsive: true
+            }
+    })
+}
 
 
 

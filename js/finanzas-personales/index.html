@@ -1,86 +1,106 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Money Flow</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
 
-  <body>
-    <header>
-      <h1>Money Flow</h1>
-      <button class="btn" id="btnAgregarTransaccion">Agregar transacción</button>
-      <button class="btn" id="cancelarTransaccion">Cancelar</button>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Money Flow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-    <main class="container">
-      <section id="datosFinanzas">
-        <table class="table" id="table_1">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Descripción</th>
-              <th>Categoría</th>
-              <th class="sumar">Monto</th>
-              <th>Acción</th>
-            </tr>
-          </thead>
-          <tbody id="transaccionList">
-            
-          </tbody>
-        </table>
-      </section>
+<body>
+  <header>
+    <h1>Money Flow</h1>
+    <button class="btn" id="btnAgregarTransaccion">Agregar transacción</button>
+    <button class="btn" id="cancelarTransaccion">Cancelar</button>
+  </header>
 
-      <br />
-      
-      <!-- aca iran los graficos y resumen TOTALES -->
-      <section id="resumen" class="resumen">
+  <main class="container">
+    <div class="filtros">
+      <label>Mes</label>
+      <input type="month" id="filtroMes">
+      <button class="btn" id="limpiarFiltros">Ver Todo</button>
+    </div>
+    <section id="datosFinanzas">
 
-        <div class="card ingreso">
-          <span>Ingreso</span>
-          <strong id="totalIngreso">₲ 0</strong>
-        </div>
+      <table class="table" id="table_1">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Categoría</th>
+            <th class="sumar">Monto</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody id="transaccionList">
 
-         <div class="card egreso">
-          <span>Egreso</span>
-          <strong id="totalEgreso">₲ 0</strong>
-        </div>
+        </tbody>
+      </table>
+    </section>
 
-         <div class="card balance">
-          <span>Balance Final</span>
-          <strong id="balanceFinal">₲ 0</strong>
-        </div>
+    <br />
 
-      </section>
-    </main>
+    <!-- aca iran los graficos y resumen TOTALES -->
+    <section id="resumen" class="resumen">
 
-    <form id="formFinanza" hidden>
-      <div class="row">
-        <label>Tipo</label>
-        <select name="tipo" id="tipo" class="form-control lista_simple" required>
-          <option value="ingreso">Ingreso</option>
-          <option value="egreso">Egreso</option>
-        </select>
-
-        <label>Descripción</label>
-        <input type="text" class="form-control" id="descripcion" placeholder="Descripción a agregar al registro...." required >
-
-        <label> Categoía</label>
-        <select name="categoria" id="categoria" class="form-control" required>
-            <option value="0">Ninguna</option>
-        </select>
-
-        <label>Fecha</label>
-        <input type="date" class="date"  id="fecha" required>
-
-        <label>Monto</label>
-        <input type="text" class="numeros" id="monto" required>
-
-        <button type="submit" class="btn" id="btnAgregar">Agregar</button>
+      <div class="card ingreso">
+        <span>Ingreso</span>
+        <strong id="totalIngreso">₲ 0</strong>
       </div>
-    </form>
 
-    <script src="script.js"></script>
-  </body>
+      <div class="card egreso">
+        <span>Egreso</span>
+        <strong id="totalEgreso">₲ 0</strong>
+      </div>
+
+      <div class="card balance">
+        <span>Balance Final</span>
+        <strong id="balanceFinal">₲ 0</strong>
+      </div>
+
+      <div class="grafico">
+        <canvas id="graficoResumen"></canvas>
+      </div>
+
+      <div class="grafico">
+        <canvas id="graficoCategorias"></canvas>
+      </div>
+
+    </section>
+  </main>
+
+  <form id="formFinanza" hidden>
+    <div class="row">
+      <label>Tipo</label>
+      <select name="tipo" id="tipo" class="form-control lista_simple" required>
+        <option value="ingreso">Ingreso</option>
+        <option value="egreso">Egreso</option>
+      </select>
+
+      <label>Descripción</label>
+      <input type="text" class="form-control" id="descripcion" placeholder="Descripción a agregar al registro...."
+        required>
+
+      <label> Categoía</label>
+      <select name="categoria" id="categoria" class="form-control" required>
+        <option value="0">Ninguna</option>
+      </select>
+
+      <label>Fecha</label>
+      <input type="date" class="date" id="fecha" required>
+
+      <label>Monto</label>
+      <input type="text" class="numeros" id="monto" required>
+
+      <button type="submit" class="btn" id="btnAgregar">Agregar</button>
+    </div>
+  </form>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>

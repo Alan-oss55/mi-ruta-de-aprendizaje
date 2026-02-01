@@ -143,7 +143,6 @@ select:focus {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    margin-bottom: 20px;
 }
 
 .resumen .card{
@@ -152,6 +151,7 @@ select:focus {
     padding: 16px;
     border-radius: 10px;
     text-align: center;
+
 }
 
 .resumen span{
@@ -179,6 +179,48 @@ select:focus {
 }
 
 
+.filtros {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.filtros label {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.filtros input {
+    width: 180px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #2d3748;
+    background-color: #0f172a;
+    color: #e5e7eb;
+}
+
+.filtros button {
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.grafico{
+    background-color: #1b263b;
+    border-radius: 10px;
+    padding: 16px;
+    height: 280px;
+}
+
+.grafico canvas{
+    width: 100%;
+    height: 100%;
+}
+
+.resumen .grafico{
+    grid-column: span 3;
+}
+
 @media( max-width: 768px){
     #datosFinanza{
         margin: 20px 10px;
@@ -192,6 +234,17 @@ select:focus {
     }
 }
 
+
+@media (max-width: 600px) {
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtros button {
+        width: 100%;
+    }
+}
 
 
 
