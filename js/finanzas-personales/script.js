@@ -109,6 +109,12 @@ function renderizarDatos() {
         btnEliminar.addEventListener('click', () => eliminarTransaccion(transaccion.id))
         
     });
+
+    if( transacciones.length > 0 ){
+        mostrarResumen() ;
+    }else{
+        ocultarResumen();
+    }
     
 }
 
@@ -223,6 +229,68 @@ monto.addEventListener('input', () => {
     ? `${entero},${decimal}`
     : entero;
 });
+
+
+
+function mostrarResumen(){
+
+    const resumen = document.getElementById('resumen');
+    const totalIngreso = document.getElementById('totalIngreso')
+    const totalEgreso = document.getElementById('totalEgreso')
+    const balanceFinal = document.getElementById('balanceFinal')
+
+    resumen.hidden = false ;
+
+    let sumIngresos = 0 ;
+    let sumEgresos = 0 ;
+    
+    
+
+    transacciones.forEach( tr => {
+
+        const montotr = Number( tr.monto );
+
+        if ( tr.tipo.toLowerCase() == 'ingreso'){
+
+            sumIngresos += montotr ;
+        }
+        if ( tr.tipo.toLowerCase() == 'egreso'){
+
+            sumEgresos += montotr ;
+        }
+
+
+    })
+
+    const balance =  sumIngresos - sumEgresos;
+
+
+    totalIngreso.textContent = sumIngresos.toLocaleString('es-ES', {
+        minimumFractionDigits: 2
+    });
+
+    totalEgreso.textContent = sumEgresos.toLocaleString('es-ES', {
+        minimumFractionDigits: 2
+    });
+
+    balanceFinal.textContent = balance.toLocaleString('es-ES', {
+        minimumFractionDigits: 2
+    });
+
+    
+}
+
+
+function ocultarResumen(){
+
+    const resumen = document.getElementById('resumen');
+
+    resumen.hidden = true ;
+}
+
+
+
+
 
 
 

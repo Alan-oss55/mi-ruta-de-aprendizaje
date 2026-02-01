@@ -139,6 +139,44 @@ select:focus {
     font-weight: 600;
 }
 
+.resumen{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.resumen .card{
+
+    background-color: #1b263b;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.resumen span{
+
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.resumen strong{
+    display: block;
+    margin-top: 6px;
+    font-size: 18px;
+}
+
+.resumen .ingreso stron{
+    color: #22c55e;
+}
+
+.resumen .egreso strong{
+  color: #ef4444;
+}
+
+.resumen .balance strong{
+  color: #38bdf8;
+}
 
 
 @media( max-width: 768px){
