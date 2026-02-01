@@ -33,13 +33,19 @@ formFinanza.addEventListener('submit', handleSubmit);
 function handleSubmit(e) {
     e.preventDefault();
 
+    const montoReal = Number(
+        monto.value
+        .replace(/\./g, '') // quitar separadores de miles
+        .replace(',', '.')  // convertir decimal
+    );
+
     const transaccion = {
         id: Date.now(),
         tipo: tipo.value,
         descripcion: descripcion.value,
         categoria: categoria.value,
         fecha: fecha.value,
-        monto: Number(monto.value)
+        monto: montoReal
     }
 
     if (editMode) {
@@ -90,21 +96,53 @@ function renderizarDatos() {
         tdFecha.textContent = transaccion.fecha;
         tdDescripcion.textContent = transaccion.descripcion
         tdCategoria.textContent = transaccion.categoria
-        tdMonto.textContent = transaccion.monto
+        tdMonto.textContent = Number(transaccion.monto).toFixed(2)
 
         tdAcciones.append(btnEliminar, btnEditar);
 
         trList.append(tdFecha, tdDescripcion, tdCategoria, tdMonto, tdAcciones)
 
         transaccionList.appendChild(trList);
-
+        
         btnEditar.addEventListener('click', () => edtiarTransaccion(transaccion.id))
-
+        
         btnEliminar.addEventListener('click', () => eliminarTransaccion(transaccion.id))
-
+        
     });
-
+    
 }
+
+
+
+
+tipo.addEventListener('change', mostrarCategorias)
+
+
+function mostrarCategorias(){
+
+    categoria.innerHTML = '' ;
+
+    const categoriasPorTipo = {
+        ingreso: ['Salario', 'Venta', 'Regalo', 'Otro'],
+        egreso: ['Comida', 'Transporte', 'Alquiler', 'Ocio']
+    };
+
+    const categorias = categoriasPorTipo[tipo.value]
+
+    categorias.forEach( cat =>{
+
+        const option = document.createElement('option')
+
+        option.value = cat.toLowerCase();
+        option.textContent = cat
+
+        categoria.appendChild(option)
+    })
+
+    
+}
+
+
 
 
 function edtiarTransaccion(id) {
@@ -130,8 +168,9 @@ function cargarFormularioEdicion(id) {
 
     tipo.value = transaccionEdit.tipo;
     descripcion.value = transaccionEdit.descripcion;
-    monto.value = transaccionEdit.monto;
+    monto.value = Number(transaccionEdit.monto).toFixed(2);
     fecha.value = transaccionEdit.fecha;
+    mostrarCategorias(); // ← CLAVE
     categoria.value = transaccionEdit.categoria
 
     editMode = true;
@@ -153,6 +192,37 @@ function ocultarForm() {
     datosFinanzas.hidden = false;
     btnAgregarTransaccion.hidden = false;
 }
+
+
+
+monto.addEventListener('input', () => {
+  let valor = monto.value;
+
+  // 1. Permitir solo números y coma
+  valor = valor.replace(/[^0-9,]/g, '');
+
+  // 2. Separar por coma
+  let partes = valor.split(',');
+
+  // 3. Si hay más de una coma, quedarse con la primera
+  if (partes.length > 2) {
+    partes = [partes[0], partes[1]];
+  }
+
+  let entero = partes[0];
+  let decimal = partes[1] || '';
+
+  // 4. Formatear miles
+  entero = entero.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // 5. Limitar decimales a 2
+  decimal = decimal.slice(0, 2);
+
+  // 6. Reconstruir valor
+  monto.value = decimal !== ''
+    ? `${entero},${decimal}`
+    : entero;
+});
 
 
 
