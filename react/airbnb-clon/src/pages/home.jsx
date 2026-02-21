@@ -21,20 +21,39 @@ function Home() {
   });
 
   return (
-    <div>
-      <h2>Alojamientos disponibles</h2>
+    <main className="p-4 bg-gray-100 min-h-screen">
+      <h2 className="text-xl font-semibold mb-4">Alojamientos disponibles</h2>
 
-      <input type="text" placeholder="Buscar por ciudad o nombre...." value={search} onChange={(e) => setSearch(e.target.value)} />
+      <input
+        type="text"
+        placeholder="Buscar por ciudad o nombre...."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-      <input type="number" placeholder="Precio mínimo" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} style={{ marginLeft: "10px" }} />
+      <input
+        type="number"
+        placeholder="Precio mínimo"
+        value={minPrice}
+        onChange={(e) => setMinPrice(e.target.value)}
+        style={{ marginLeft: "10px" }}
+      />
 
-      <input type="number" placeholder="Precio máximo" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} style={{ marginLeft: "10px" }} />
+      <input
+        type="number"
+        placeholder="Precio máximo"
+        value={maxPrice}
+        onChange={(e) => setMaxPrice(e.target.value)}
+        style={{ marginLeft: "10px" }}
+      />
 
-      <div style={{ marginTop: "20px" }}> {filteredPlaces.map((place) => (
+      <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+         
+        {filteredPlaces.map((place) => (
           <PlaceCard key={place.id} place={place} />
         ))}
       </div>
-    </div>
+    </main>
   );
 }
 
